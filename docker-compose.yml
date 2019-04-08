@@ -1,0 +1,54 @@
+version: '2'
+services:
+    ysf_postgres:
+        image: postgres
+        ports:
+            - '5432:5432'
+        restart: always
+
+    ysf_mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysqldb-password123
+            - MYSQL_USER=mysqldb123
+            - MYSQL_PASSWORD=mysqldb-password123
+            - MYSQL_DATABASE=mysqldb123
+        ports:
+            - "3306:3306"
+        restart: always
+
+    ysf_mariadb:
+        image: mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=mariadb-password123
+            - MYSQL_USER=mariadb123
+            - MYSQL_PASSWORD=mariadb-password123
+            - MYSQL_DATABASE=mariadb123
+        ports:
+            - "3307:3306"
+        restart: always
+
+    ysf_php_fpm:
+        build: php-fpm
+        ports:
+            - '9002:9000'
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        links:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_mariadb
+
+    ysf_nginx:
+        build: nginx
+        ports:
+            - '80:80'
+        links:
+            - ysf_php_fpm
+        volumes_from:
+            - ysf_php_fpm
+        volumes:
+            - ./logs/nginx/:/var/log/nginx:cached
