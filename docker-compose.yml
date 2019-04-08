@@ -30,10 +30,34 @@ services:
             - "3307:3306"
         restart: always
 
+    ysf_redis:
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./data:/data
+        restart: always
+
+    ysf_mongo:
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+        restart: always
+
+    ysf_mongo-express:
+        image: mongo-express
+        ports:
+            - 8081:8081
+        environment:
+          ME_CONFIG_MONGODB_ADMINUSERNAME: root
+          ME_CONFIG_MONGODB_ADMINPASSWORD: example
+        restart: always
+
     ysf_php_fpm:
         build: php-fpm
         ports:
-            - '9002:9000'
+            - "9002:9000"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -41,6 +65,9 @@ services:
             - ysf_postgres
             - ysf_mysql
             - ysf_mariadb
+            - ysf_redis
+            - ysf_mongo
+        restart: always
 
     ysf_nginx:
         build: nginx
@@ -52,3 +79,11 @@ services:
             - ysf_php_fpm
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
+        restart: always
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - 8080:8080
+        restart: always
