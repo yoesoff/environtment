@@ -1,4 +1,4 @@
-version: '2'
+version: '3.1'
 services:
     ysf_postgres:
         image: postgres
@@ -38,24 +38,6 @@ services:
             - ./data:/data
         restart: always
 
-    ysf_mongo:
-        image: mongo
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
-        restart: always
-
-    ysf_mongo-express:
-        image: mongo-express:latest
-        ports:
-            - 8081:8081
-        environment:
-          ME_CONFIG_MONGODB_ADMINUSERNAME: root
-          ME_CONFIG_MONGODB_ADMINPASSWORD: example
-        restart: always
-        links:
-            - ysf_mongo
-
     ysf_php_fpm:
         build: php-fpm
         ports:
@@ -68,7 +50,6 @@ services:
             - ysf_mysql
             - ysf_mariadb
             - ysf_redis
-            - ysf_mongo
         restart: always
 
     ysf_nginx:
@@ -77,8 +58,9 @@ services:
             - '80:80'
         links:
             - ysf_php_fpm
-        volumes_from:
-            - ysf_php_fpm
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
         restart: always
@@ -89,6 +71,10 @@ services:
         ports:
           - 8080:8080
         restart: always
+        depends_on:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_mariadb
         links:
             - ysf_postgres
             - ysf_mysql
