@@ -4,6 +4,10 @@ FROM php:7.2-fpm
 #https://github.com/ezsystems/docker-php/blob/master/php/Dockerfile-7.2
 #https://stackoverflow.com/questions/55623901/magento-2-warning-imagecreatefromjpeg-error
 
+# PHP.INI Settings
+RUN echo 'memory_limit = 2G' >> /usr/local/etc/php/conf.d/memlimit.ini;
+RUN echo 'max_execution_time = 18000' >> /usr/local/etc/php/conf.d/max_execution_time.ini;
+
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev vim
