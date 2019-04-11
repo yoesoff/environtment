@@ -6,11 +6,11 @@ FROM php:7.2-fpm
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev
+RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev vim
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-xpm-dir=/usr/include/ --enable-gd-jis-conv
 RUN docker-php-ext-install -j$(nproc) gd      
-RUN apt-get install -y libxml2-dev libldb-dev libldap2-dev libxml2-dev libssl-dev \
+RUN apt-get install -y libxml2-dev libldb-dev libxml2-dev libssl-dev \
     libxslt-dev \
     libpq-dev \
     libsqlite3-dev \
@@ -46,9 +46,7 @@ RUN docker-php-ext-install -j$(nproc) soap\
     dom \
     zip \
     session
-RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
-RUN docker-php-ext-install -j$(nproc) ldap\
-    json \
+RUN docker-php-ext-install -j$(nproc) json\
     hash \
     sockets \
     pdo \

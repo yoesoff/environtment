@@ -1,4 +1,5 @@
 version: '3.1'
+
 services:
     ysf_postgres:
         image: postgres
@@ -34,8 +35,6 @@ services:
         image: redis:latest
         ports:
             - "6379:6379"
-        volumes:
-            - ./data:/data
         restart: always
 
     ysf_php_fpm:
@@ -56,13 +55,13 @@ services:
         build: nginx
         ports:
             - '80:80'
+        depends_on:
+            - ysf_php_fpm
         links:
             - ysf_php_fpm
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
-        volumes:
-            - ./logs/nginx/:/var/log/nginx:cached
         restart: always
 
     adminer:
@@ -79,3 +78,4 @@ services:
             - ysf_postgres
             - ysf_mysql
             - ysf_mariadb
+
