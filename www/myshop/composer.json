@@ -31,7 +31,8 @@
         "magento/module-widget-sample-data": "100.3.*",
         "magento/module-wishlist-sample-data": "100.3.*",
         "magento/product-community-edition": "2.3.1",
-        "magento/sample-data-media": "100.3.*"
+        "magento/sample-data-media": "100.3.*",
+        "mageplaza/module-smtp": "^1.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~2.13.0",
