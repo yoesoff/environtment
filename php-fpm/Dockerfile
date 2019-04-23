@@ -5,7 +5,7 @@ FROM php:7.2-fpm
 #https://stackoverflow.com/questions/55623901/magento-2-warning-imagecreatefromjpeg-error
 
 # PHP.INI Settings
-RUN echo 'memory_limit = 2G' >> /usr/local/etc/php/conf.d/memlimit.ini;
+RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
 RUN echo 'max_execution_time = 18000' >> /usr/local/etc/php/conf.d/max_execution_time.ini;
 
 RUN apt-get update
@@ -38,7 +38,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 RUN docker-php-ext-install opcache
 RUN yes | pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN docker-php-ext-install -j$(nproc) soap\
     ftp \
