@@ -6,7 +6,11 @@
 
 <?php foreach($block->getFoods() as $food): ?>
 
-    <li><?php echo $food->getNama(); ?> (<a href="/makanan/detail/detail/id/<?php echo $food->getId(); ?>"> View </a>) </li>
+    <li>
+        <?php echo $food->getNama(); ?> 
+        (<a href="/makanan/detail/detail/id/<?php echo $food->getId(); ?>"> View </a>
+        <a href="/makanan/actiona/create/id/<?php echo $food->getId(); ?>"> Edit </a>) 
+    </li>
 
 <?php endforeach; ?>
 </ul>

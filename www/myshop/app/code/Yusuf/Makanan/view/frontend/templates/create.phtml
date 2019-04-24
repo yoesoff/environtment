@@ -4,17 +4,19 @@
         <legend class="legend"><span>Buat Makanan</span></legend><br/>
         <p>Monggo dilengkapi datanya!</p>
 
+        <input name="makanan_id" id="makanan_id" title="makanan_id" value="<?php echo $block->getFood()->getId() ?>" class="input-text" type="text" />
+
         <div class="field nama">
             <label class="label" for="nama"><span>Nama</span></label>
             <div class="control">
-                <input name="nama" id="nama" title="Nama" value="" class="input-text" type="text">
+                <input name="nama" id="nama" title="Nama" value="<?php echo $block->getFood()->getNama() ?>" class="input-text" type="text" />
             </div>
         </div>
 
         <div class="field nama">
             <label class="label" for="penjelasan"><span>Penjelasan</span></label>
             <div class="control">
-                <textarea name="penjelasan" id="penjelasan" title="Penjelasan" value="" class="input-text" type="text"></textarea>
+                <textarea name="penjelasan" id="penjelasan" title="Penjelasan" class="input-text"><?php echo $block->getFood()->getPenjelasan() ?></textarea>
             </div>
         </div>
 

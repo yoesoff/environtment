@@ -21,12 +21,14 @@ class Save extends \Magento\Framework\App\Action\Action
 
 	public function execute()
     {
-        $food = $this->_food->create();
         $data = $this->getRequest()->getPostValue();
-        $food->setData($data);
         
+        $food = $this->_food->create();
+
+        $food->setData($data);
+
         if($food->save()){
-            $this->messageManager->addSuccessMessage(__('You saved the data.'));
+            $this->messageManager->addSuccessMessage(__('Nice, You just saved the data.'));
         }else{
             $this->messageManager->addErrorMessage(__('Data was not saved.'));
         }
