@@ -25,13 +25,27 @@ class Save extends \Magento\Framework\App\Action\Action
         
         $food = $this->_food->create();
 
-        $food->setData($data);
+        if(isset($data['makanan_id']) && (isset($data['_method']) && $data['_method'] == 'delete' ) ) { // Update
+            
+            $food = $food->load($data['makanan_id']);
 
-        if($food->save()){
-            $this->messageManager->addSuccessMessage(__('Nice, You just saved the data.'));
-        }else{
-            $this->messageManager->addErrorMessage(__('Data was not saved.'));
+            if ($food->delete()){
+                $this->messageManager->addSuccessMessage(__('Nice, You just REMOVED the data.'));
+            } else {
+                $this->messageManager->addErrorMessage(__('Data was not REMOVED.'));
+            }
+            
+        } else {
+
+            $food->setData($data);
+
+            if ($food->save()){
+                $this->messageManager->addSuccessMessage(__('Nice, You just saved the data.'));
+            } else {
+                $this->messageManager->addErrorMessage(__('Data was not saved.'));
+            }
         }
+
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath('makanan/listing/listing');
         return $resultRedirect;

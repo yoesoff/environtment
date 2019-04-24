@@ -4,8 +4,10 @@
         <legend class="legend"><span>Buat Makanan</span></legend><br/>
         <p>Monggo dilengkapi datanya!</p>
 
+        <?php if (is_numeric( $block->getFood()->getId())): ?>
         <input name="makanan_id" id="makanan_id" title="makanan_id" value="<?php echo $block->getFood()->getId() ?>" class="input-text" type="text" />
-
+        <?php endif ?>
+        
         <div class="field nama">
             <label class="label" for="nama"><span>Nama</span></label>
             <div class="control">
