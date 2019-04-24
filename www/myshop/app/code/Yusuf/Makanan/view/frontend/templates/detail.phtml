@@ -1,0 +1,14 @@
+<?php /** @var Toptal\Blog\Block\Posts $block */ ?>
+
+<h1><?php echo $block->getFood()->getNama() ?></h1>
+
+<?php 
+    echo $block->getFood()->getCreatedAt();
+?>
+
+
+<hr/>
+
+<?php 
+    echo $block->getFood()->getPenjelasan();
+?>

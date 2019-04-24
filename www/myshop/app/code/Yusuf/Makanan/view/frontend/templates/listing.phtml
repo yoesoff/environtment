@@ -1,0 +1,19 @@
+<?php /** @var Toptal\Blog\Block\Posts $block */ ?>
+
+<h1>Best Foods</h1>
+
+<ul>
+
+<?php foreach($block->getFoods() as $food): ?>
+
+    <li><?php echo $food->getNama(); ?> (<a href="/makanan/detail/detail/id/<?php echo $food->getId(); ?>"> View </a>) </li>
+
+<?php endforeach; ?>
+</ul>
+
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
+
+
+<a href="/makanan/actiona/create" class="btn btn-success">Buat Baru</a>
