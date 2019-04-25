@@ -15,7 +15,9 @@ class Test extends \Magento\Framework\App\Action\Action
 
 	public function execute()
 	{
-		echo "Hello World";
+		$a = 0;
+		$b = 9;
+		print_r($this->getRequest()->getParams());
 		exit;
 	}
 }
