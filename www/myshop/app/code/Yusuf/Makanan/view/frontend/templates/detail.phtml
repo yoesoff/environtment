@@ -1,21 +1,22 @@
-<?php /** @var Toptal\Blog\Block\Posts $block */ ?>
-
-<h1><?php echo $block->getFood()->getNama() ?></h1>
-
 <?php 
-    echo $block->getFood()->getCreatedAt();
+/** @var Toptal\Blog\Block\Posts $block */ 
+$food = $block->getFood();
 ?>
 
+<h2>Nama</h2>
+<p>name: <?php echo $food->getNama() ?></p>
 
 <hr/>
-
-<?php 
-    echo $block->getFood()->getPenjelasan();
-?>
+<h2>Penjelasan</h2>
+<?php echo $food->getPenjelasan(); ?>
 
 <hr/>
+<h2>Date</h2>
+<?php echo $food->getCreatedAt(); ?>
 
 
+<br />
+<hr/>
 <a href="/makanan/actiona/create" class="btn btn-success">Buat Baru</a>
-
+|
 <a href="/makanan/listing/listing" class="btn btn-success">Listing</a>

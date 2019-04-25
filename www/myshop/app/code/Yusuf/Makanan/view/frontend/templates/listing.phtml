@@ -18,7 +18,7 @@
         )
         <form action="<?php echo $block->getBaseUrl()?>makanan/actiona/save/id/<?php echo $food->getId(); ?>" method="post" id="delete_form<?php echo $k; ?>">
             <input type="hidden" name="_method" value="delete" />
-            <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+            <input type="hidden" name="form_key" />
             <input type="hidden" name="makanan_id" id="makanan_id" title="makanan_id" value="<?php echo $food->getId(); ?>" />
 
             <a href="javascript:{}" onclick="document.getElementById('delete_form<?php echo $k; ?>').submit(); return false" >Delete</a>
