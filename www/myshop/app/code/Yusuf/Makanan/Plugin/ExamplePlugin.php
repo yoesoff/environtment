@@ -31,7 +31,7 @@ class ExamplePlugin
 		$result = $proceed();
 
 		// echo "Around: <br/>";
-		$result->setNama( $result->getNama() . " -Intercept 1");
+		$result->setNama( $result->getNama() . " - >> 1");
 		return $result;
 	}
 
@@ -46,7 +46,7 @@ class ExamplePlugin
 	{
 
 		// echo "After: <br/>";
-		$result->setNama($result->getNama() . " -Intercept 2");
+		$result->setNama($result->getNama() . " - >> 2");
 		
 		return $result;
 
