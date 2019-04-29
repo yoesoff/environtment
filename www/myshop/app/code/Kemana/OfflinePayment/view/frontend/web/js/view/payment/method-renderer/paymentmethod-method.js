@@ -10,7 +10,7 @@ define(
     ],
     function(Component) {
         'use strict';
- 
+        console.log("Paymentmethod-method.js");
         return Component.extend({
             defaults: {
                 template: 'Kemana_OfflinePayment/payment/paymentmethod'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kemana\Payment\Model;
+namespace Kemana\OfflinePayment\Model;
 
 use Magento\Payment\Model\Method\AbstractMethod;
 

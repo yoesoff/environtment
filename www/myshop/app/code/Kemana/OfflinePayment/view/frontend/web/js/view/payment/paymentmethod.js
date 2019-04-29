@@ -20,6 +20,7 @@ define(
                 component: 'Kemana_OfflinePayment/js/view/payment/method-renderer/paymentmethod-method'
             }
         );
+        console.log("Paymentmethod.js");
         /** Add view logic here if needed */
         return Component.extend({});
     }
