@@ -45,7 +45,7 @@ class Foods extends Template
      */
     public function getFoods()
     {
-        $foods = $this->foodFactory->getCollection();
+        $foods = $this->foodFactory->getCollection()->setOrder('makanan_id','desc');;
 
         // Pagination stuff
         $page = ($this->getRequest()->getParam('p'))? $this->getRequest()->getParam('p') : 1;

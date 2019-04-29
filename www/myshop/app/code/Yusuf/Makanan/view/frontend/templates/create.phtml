@@ -1,24 +1,25 @@
 <!-- http://code.vky.co.in/insert-data-custom-table-using-resource-model-magento-2/ -->
-<form class="" action="<?php echo $block->getBaseUrl().'makanan/actiona/save'; ?>" id="create_makanan" method="post">
+<!--  data-mage-init='{"validation":{}}' <- tambahin di form attribute bila tidak pakai custom js -->
+<form class="" action="<?php echo $block->getBaseUrl().'makanan/actiona/save'; ?>" id="create_makanan" method="post" autocomplete="off" >
     <fieldset class="fieldset">
-        <legend class="legend"><span>Buat Makanan</span></legend><br/>
+        <legend class="legend"><span><?php echo $block->escapeHtml(__('Buat Makanan')) ?></span></legend><br/>
         <p>Monggo dilengkapi datanya!</p>
 
         <?php if (is_numeric( $block->getFood()->getId())): ?>
-        <input name="makanan_id" id="makanan_id" title="makanan_id" value="<?php echo $block->getFood()->getId() ?>" class="input-text" type="text" />
+            <input name="makanan_id" id="makanan_id" title="makanan_id" value="<?php echo $block->getFood()->getId() ?>" class="input-text" type="text" />
         <?php endif ?>
         
         <div class="field nama">
-            <label class="label" for="nama"><span>Nama</span></label>
+            <label class="label required" for="nama"><span>Nama</span></label>
             <div class="control">
-                <input name="nama" id="nama" title="Nama" value="<?php echo $block->getFood()->getNama() ?>" class="input-text" type="text" />
+                <input name="nama" id="nama" title="Nama" value="<?php echo $block->getFood()->getNama() ?>" class="input-text required-entry" type="text" />
             </div>
         </div>
 
         <div class="field nama">
             <label class="label" for="penjelasan"><span>Penjelasan</span></label>
             <div class="control">
-                <textarea name="penjelasan" id="penjelasan" title="Penjelasan" class="input-text"><?php echo $block->getFood()->getPenjelasan() ?></textarea>
+                <textarea name="penjelasan" id="penjelasan" title="Penjelasan" class="input-text required-entry"><?php echo $block->getFood()->getPenjelasan() ?></textarea>
             </div>
         </div>
 
@@ -32,3 +33,25 @@
         </div>
     </div>
 </form>
+
+<!-- https://magento.stackexchange.com/questions/95171/magento-2-form-validation -->
+<!-- Opsi lain tambahkan data-mage-init='{"validation":{}}' di form -->
+<script type="text/x-magento-init">
+    {
+        "#create_makanan": {
+            "validation": {}
+        }
+    }
+</script>
+
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+
+    var dataForm = $('#create_makanan');
+    dataForm.mage('validation', {});
+    console.log(dataForm);
+});
+</script>

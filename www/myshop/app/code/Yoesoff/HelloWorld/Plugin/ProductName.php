@@ -24,7 +24,7 @@ class ProductName
 	{
         $weight = (int) $subject->getWeight();
 
-		$result = $result . "&nbsp;" . " $weight  (kg)";
+		$result = $result . " " . " $weight  (kg)";
 
 		return $result;
 

@@ -30,8 +30,9 @@ class ExamplePlugin
 		
 		$result = $proceed();
 
-		// echo "Around: <br/>";
-		$result->setNama( $result->getNama() . " - >> 1");
+        if ($result->getId()) {
+            $result->setNama($result->getNama() . " - >> 1");
+        }
 		return $result;
 	}
 
@@ -46,8 +47,9 @@ class ExamplePlugin
 	{
 
 		// echo "After: <br/>";
-		$result->setNama($result->getNama() . " - >> 2");
-		
+        if ($result->getId()) {
+            $result->setNama($result->getNama() . " - >> 2");
+        }
 		return $result;
 
 	}
