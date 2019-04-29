@@ -6,3 +6,4 @@ data/dump.rdb
 WiredTiger
 data/diagnostic.data
 data/journal/
+.vscode
