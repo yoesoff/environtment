@@ -1,0 +1,8 @@
+<theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
+    <title>Kemana Simple Themes</title>
+    <!-- https://www.cloudways.com/blog/create-custom-theme-magento-2-part-1/ -->
+    <parent>Magento/luma</parent>
+    <media>
+        <preview_image>media/kemana-simple-themes.png</preview_image>
+    </media>
+</theme>
