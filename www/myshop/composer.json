@@ -32,6 +32,7 @@
         "magento/module-wishlist-sample-data": "100.3.*",
         "magento/product-community-edition": "2.3.1",
         "magento/sample-data-media": "100.3.*",
+        "mageplaza/magento-2-banner-slider-extension": "^2.0",
         "mageplaza/module-smtp": "^1.2"
     },
     "require-dev": {

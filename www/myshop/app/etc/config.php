@@ -5,6 +5,8 @@ return [
         'Magento_Directory' => 1,
         'Magento_Theme' => 1,
         'Magento_Backend' => 1,
+        'Kemana_OfflinePayment' => 1,
+        'Kemana_Simpleshipping' => 1,
         'Magento_Variable' => 1,
         'Magento_Eav' => 1,
         'Magento_AdminNotification' => 1,
@@ -224,10 +226,13 @@ return [
         'Magento_WishlistGraphQl' => 1,
         'Magento_WishlistSampleData' => 1,
         'Mageplaza_Core' => 1,
+        'Mageplaza_BannerSlider' => 1,
         'Mageplaza_Smtp' => 1,
         'Temando_Shipping' => 1,
         'Toptal_Blog' => 1,
         'Vertex_Tax' => 1,
-        'Yoesoff_HelloWorld' => 1
+        'Yoesoff_HelloWorld' => 1,
+        'Yusuf_Makanan' => 1,
+        'Yusuf_Minuman' => 0
     ]
 ];
