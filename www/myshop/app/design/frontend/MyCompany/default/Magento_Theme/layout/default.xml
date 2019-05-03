@@ -1,11 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+
         <referenceBlock name="logo">
             <arguments>
-                <argument name="logo_file" xsi:type="string">images/logo.svg</argument>
+                <argument name="logo_file" xsi:type="string">images/logo.png</argument>
                 <argument name="logo_img_width" xsi:type="number">200</argument> 
-                <argument name="logo_img_height" xsi:type="number">100</argument>
+                <argument name="logo_img_height" xsi:type="number">150</argument>
             </arguments>
         </referenceBlock>
+
+        <!-- <referenceContainer name="footer">
+            <block class="Toptal\Blog\Block\Posts"
+                   name="posts.list"
+                   template="Toptal_Blog::post/list.phtml" />
+        </referenceContainer> -->
+
+        <!-- <move element="catalog.topnav" destination="header-wrapper" /> -->
+
+        <!-- <referenceBlock name="catalog.topnav" remove="true"/> -->
+        <!-- try this https://magento.stackexchange.com/questions/95017/adding-a-non-category-link-to-the-navigation-links-in-magento-2 -->
+        <referenceBlock name="catalog.topnav">
+            <block class="Magento\Framework\View\Element\Html\Link" name="contact-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Contact us</argument>
+                    <argument name="path" xsi:type="string" translate="true">contact</argument>
+                    <argument name="attributes" xsi:type="array"> <item name="target" xsi:type="string">_blank</item> </argument> 
+                </arguments>
+            </block>
+        </referenceBlock>
+
     </body>
 </page>
