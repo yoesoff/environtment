@@ -1,0 +1,9 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <type name="Yusuf\Makanan\Block\Food">
+        <plugin name="Yusuf_Food" type="Yusuf\Makanan\Plugin\ExamplePlugin" sortOrder="10" disabled="false"  />
+    </type>
+
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="Yusuf_Cart" type="Yusuf\Makanan\Plugin\Cart" sortOrder="9" />
+    </type>
+</config>
