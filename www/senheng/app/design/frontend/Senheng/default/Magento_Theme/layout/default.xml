@@ -6,7 +6,7 @@
         <!-- <referenceBlock name="top.search" remove="true"/> -->
         <!-- <referenceBlock name="minicart" remove="true"/> -->
         <referenceBlock name="store.menu" remove="true"/>
-        <referenceBlock name="form.subscribe" remove="true"/>
+        <!-- <referenceBlock name="form.subscribe" remove="true"/> -->
         <referenceBlock name="footer_links" remove="true"/>
         <!-- <referenceBlock name="copyright" remove="true"/> -->
         <referenceBlock name="report.bugs" remove="true"/>
