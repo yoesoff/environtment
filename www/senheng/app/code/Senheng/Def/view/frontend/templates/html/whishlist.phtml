@@ -1,0 +1,73 @@
+<?php
+/* you can customize the wishlist here */
+?>
+<style>
+    .custom.link.wishlist{
+        float: right;
+    }
+    .custom.link.wishlist .counter.qty {
+        background: #ff5501;
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 2px;
+        display: inline-block;
+        margin: 3px 0 0;
+        min-width: 18px;
+        overflow: hidden;
+        padding: 0 3px;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .wishlist-custom:before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 22px;
+        line-height: 28px;
+        color: #757575;
+        content: '\e600';
+        font-family: 'luma-icons';
+        margin: 0;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    .wishlist-custom .text{
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+</style>
+<div class="custom link wishlist" data-bind="scope: 'wishlist'">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?> class="wishlist-custom">
+        <span class="text"><?= $block->escapeHtml($block->getLabel()) ?></span>
+        <!-- ko if: wishlist().counter -->
+        <span data-bind="text: wishlist().counter" class="counter qty"></span>
+        <!-- /ko -->
+    </a>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

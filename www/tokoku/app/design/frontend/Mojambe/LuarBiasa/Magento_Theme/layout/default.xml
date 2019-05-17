@@ -25,9 +25,9 @@
 
         </referenceContainer>
 
-        <referenceContainer name="columns.top">
+        <!-- <referenceContainer name="columns.top">
             <block class="Mojambe\Blog\Block\Html\MainImage" name="page.main.title" template="Mojambe_Blog::html/mainimage.phtml"/>
-        </referenceContainer>
+        </referenceContainer> -->
 
         <referenceContainer name="page.bottom.container">
             <block class="Mojambe\Blog\Block\Html\Footer"
