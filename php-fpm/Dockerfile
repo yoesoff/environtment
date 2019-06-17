@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.1-fpm
 
 #https://hub.docker.com/_/php/
 #https://github.com/ezsystems/docker-php/blob/master/php/Dockerfile-7.2
@@ -7,10 +7,11 @@ FROM php:7.2-fpm
 # PHP.INI Settings
 RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
 RUN echo 'max_execution_time = 18000' >> /usr/local/etc/php/conf.d/max_execution_time.ini;
+RUN echo 'extension=mailparse.so' >> /usr/local/etc/php/conf.d/mailparse.ini;
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev vim
+RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev vim git build-essential 
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-xpm-dir=/usr/include/ --enable-gd-jis-conv
 RUN docker-php-ext-install -j$(nproc) gd      
@@ -94,6 +95,16 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 #
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
+
+#
+RUN pecl install mailparse
+
+#
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g foreman
+RUN npm install -g yarn
+
 # Set timezone
 RUN rm /etc/localtime
 RUN ln -s  /usr/share/zoneinfo/Asia/Jakarta  /etc/localtime
