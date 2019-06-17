@@ -16,25 +16,40 @@
             </arguments>
         </referenceBlock>
 
-        <!-- <referenceContainer name="footer">
-            <block class="Toptal\Blog\Block\Posts"
-                   name="posts.list"
-                   template="Toptal_Blog::post/list.phtml" />
-        </referenceContainer> -->
+        <referenceContainer name="header-wrapper">
+            <block class="Toptal\Blog\Block\NavTop"
+                name="navtop.custom"
+                template="Toptal_Blog::navtop.phtml" />
+        </referenceContainer>
 
-        <!-- <move element="catalog.topnav" destination="header-wrapper" /> -->
+        <referenceBlock name="catalog.topnav" remove="true"/>
 
-        <!-- <referenceBlock name="catalog.topnav" remove="true"/> -->
-        <!-- try this https://magento.stackexchange.com/questions/95017/adding-a-non-category-link-to-the-navigation-links-in-magento-2 -->
-        <referenceBlock name="catalog.topnav">
-            <block class="Magento\Framework\View\Element\Html\Link" name="contact-link">
-                <arguments>
-                    <argument name="label" xsi:type="string" translate="true">Contact us</argument>
-                    <argument name="path" xsi:type="string" translate="true">contact</argument>
-                    <argument name="attributes" xsi:type="array"> <item name="target" xsi:type="string">_blank</item> </argument> 
-                </arguments>
-            </block>
-        </referenceBlock>
+        <referenceBlock name="top.search" remove="true" />
+        <referenceBlock name="minicart" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true" />
+
+        <referenceContainer name="content">
+            <block class="Toptal\Blog\Block\NavTop"
+                name="footer.top"
+                template="Toptal_Blog::footer_top.phtml" />
+        </referenceContainer>
+        
+        <referenceContainer name="footer">
+            <block class="Toptal\Blog\Block\NavTop"
+                name="footer.copyright"
+                template="Toptal_Blog::copyright.phtml" />
+
+            <block class="Toptal\Blog\Block\NavTop"
+                name="footer.custom"
+                template="Toptal_Blog::footer.phtml" />
+
+            <block class="Toptal\Blog\Block\NavTop"
+                name="footer_links.custom"
+                template="Toptal_Blog::footer_links.phtml" />
+        </referenceContainer>
+
+        <referenceBlock name="footer_links" remove="true"/>
+   
 
     </body>
 </page>
