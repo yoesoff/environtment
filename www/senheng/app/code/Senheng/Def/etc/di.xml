@@ -1,5 +1,0 @@
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <type name="Magento\Theme\Block\Html\Footer">
-        <plugin name="Senheng_Default::UpdateCopyrightWithCurrentYear" type="Senheng\Def\Plugin\UpdateCopyrightWithCurrentYear" sortOrder="100" disabled="false"  />
-    </type>
-</config>
