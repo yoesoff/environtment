@@ -1,6 +1,41 @@
 version: '3.1'
 
 services:
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
+        container_name: elasticsearch
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - esdata1:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+        networks:
+            - esnet
+
+    elasticsearch2:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
+        container_name: elasticsearch2
+        environment:
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+          - "discovery.zen.ping.unicast.hosts=elasticsearch"
+        ulimits:
+          memlock:
+              soft: -1
+              hard: -1
+        volumes:
+          - esdata2:/usr/share/elasticsearch/data
+        networks:
+          - esnet
+
     ysf_postgres:
         image: postgres
         ports:
@@ -18,6 +53,9 @@ services:
             - MYSQL_DATABASE=mysqldb123
         ports:
             - "3306:3306"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
         restart: always
 
     ysf_mariadb:
@@ -29,6 +67,9 @@ services:
             - MYSQL_DATABASE=mariadb123
         ports:
             - "3307:3306"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
         restart: always
 
     ysf_redis:
@@ -41,6 +82,8 @@ services:
         build: php-fpm
         ports:
             - "9002:9000"
+            - "3001:3001"
+            - "3000:3000"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -49,12 +92,14 @@ services:
             - ysf_mysql
             - ysf_mariadb
             - ysf_redis
+            - elasticsearch
+            - elasticsearch2
         restart: always
 
     ysf_nginx:
         build: nginx
         ports:
-            - '80:80'
+            - "80:80"
         depends_on:
             - ysf_php_fpm
         links:
@@ -68,7 +113,7 @@ services:
         image: adminer
         restart: always
         ports:
-          - 8080:8080
+          - 8081:8080
         restart: always
         depends_on:
             - ysf_postgres
@@ -78,4 +123,3 @@ services:
             - ysf_postgres
             - ysf_mysql
             - ysf_mariadb
-
