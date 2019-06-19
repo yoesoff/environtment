@@ -1,40 +1,16 @@
 version: '3.1'
 
 services:
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
-        container_name: elasticsearch
-        environment:
-            - cluster.name=docker-cluster
-            - bootstrap.memory_lock=true
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        volumes:
-            - esdata1:/usr/share/elasticsearch/data
-        ports:
-            - 9200:9200
-        networks:
-            - esnet
 
-    elasticsearch2:
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
-        container_name: elasticsearch2
-        environment:
-          - cluster.name=docker-cluster
-          - bootstrap.memory_lock=true
-          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-          - "discovery.zen.ping.unicast.hosts=elasticsearch"
-        ulimits:
-          memlock:
-              soft: -1
-              hard: -1
+    ysf_elastic:
+        image: ubuntu:16.04
+        ports:
+            - '9200:9200'
         volumes:
-          - esdata2:/usr/share/elasticsearch/data
-        networks:
-          - esnet
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        restart: always
+        tty: true
 
     ysf_postgres:
         image: postgres
@@ -92,8 +68,7 @@ services:
             - ysf_mysql
             - ysf_mariadb
             - ysf_redis
-            - elasticsearch
-            - elasticsearch2
+            - ysf_elastic
         restart: always
 
     ysf_nginx:

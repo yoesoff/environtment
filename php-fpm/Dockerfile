@@ -9,9 +9,11 @@ RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
 RUN echo 'max_execution_time = 18000' >> /usr/local/etc/php/conf.d/max_execution_time.ini;
 RUN echo 'extension=mailparse.so' >> /usr/local/etc/php/conf.d/mailparse.ini;
 
+#Update
 RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y apt-utils snmp wget iputils-ping libicu-dev vim git build-essential 
+
+#Install Stuff
+RUN apt-get install -y apt-utils gnupg2 snmp wget iputils-ping libicu-dev vim git build-essential 
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-xpm-dir=/usr/include/ --enable-gd-jis-conv
 RUN docker-php-ext-install -j$(nproc) gd      
@@ -95,11 +97,10 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 #
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
-
 #
-RUN pecl install mailparse
+RUN pecl install mailparse	
 
-#
+#Install Node
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g foreman
