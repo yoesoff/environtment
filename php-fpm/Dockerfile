@@ -1,23 +1,38 @@
 FROM php:7.1-fpm
 
-#https://hub.docker.com/_/php/
-#https://github.com/ezsystems/docker-php/blob/master/php/Dockerfile-7.2
-#https://stackoverflow.com/questions/55623901/magento-2-warning-imagecreatefromjpeg-error
-
 # PHP.INI Settings
 RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
 RUN echo 'max_execution_time = 18000' >> /usr/local/etc/php/conf.d/max_execution_time.ini;
-RUN echo 'extension=mailparse.so' >> /usr/local/etc/php/conf.d/mailparse.ini;
+
+#https://github.com/phusion/baseimage-docker/issues/58
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+#https://github.com/wv-gis/mudak-wrm-public/issues/2
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
 #Update
-RUN apt-get update
+#https://github.com/phusion/baseimage-docker/issues/319
+RUN apt-get update --fix-missing
+RUN apt-get install -y --no-install-recommends apt-utils \
+    git-core \
+    openssl \
+    libssl-dev
 
 #Install Stuff
-RUN apt-get install -y apt-utils gnupg2 snmp wget iputils-ping libicu-dev vim git build-essential 
-RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
+RUN apt-get install -y --no-install-recommends vim git
+
+RUN apt-get install -y  --no-install-recommends build-essential \
+    gnupg2 \
+    snmp \
+    wget \
+    iputils-ping \ 
+    libicu-dev 
+  
+RUN apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
+
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-xpm-dir=/usr/include/ --enable-gd-jis-conv
 RUN docker-php-ext-install -j$(nproc) gd      
-RUN apt-get install -y libxml2-dev libldb-dev libxml2-dev libssl-dev \
+RUN apt-get install -y --no-install-recommends libxml2-dev libldb-dev libxml2-dev \
     libxslt-dev \
     libpq-dev \
     libsqlite3-dev \
@@ -98,11 +113,17 @@ RUN pecl install mongodb && docker-php-ext-enable mongodb
 #
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 #
-RUN pecl install mailparse	
+RUN pecl install mailparse && docker-php-ext-enable mailparse
+# mcrypt-1.0.1 for next version
+RUN apt-get install -y libmcrypt-dev && pecl install mcrypt-1.0.0 && docker-php-ext-enable mcrypt
 
 #Install Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
+RUN ln -s /usr/bin/nodejs /usr/local/bin/node
+RUN node -v
+
+#Install NodeJS Tools
 RUN npm install -g foreman
 RUN npm install -g yarn
 RUN npm install -g webpack
