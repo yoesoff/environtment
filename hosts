@@ -1,0 +1,28 @@
+127.0.0.1  localhost news-portal.ddev.local dbkl.local oapi.local
+127.0.0.1  yoesoff-ThinkPad-X220
+
+#127.0.0.1    localhost.test
+127.0.0.1    www.property-web.local
+
+#127.0.0.1    astrnt.local
+#127.0.0.1    app.astrnt.local
+#127.0.0.1    api.astrnt.local
+#127.0.0.1    qna.astrnt.local
+
+#127.0.0.1    cirlces.astrnt.local
+#127.0.0.1    bca.astrnt.local
+
+127.0.0.1    www.cakecms.local
+127.0.0.1    cakecms.local
+127.0.0.1    cakephp.local
+127.0.0.1    uxarmy.local community.uxarmy.local qa.uxarmy.local fawn.uxarmy.local app.uxarmy.local
+#keep this on master
+127.0.0.1   uxarmy2.local community.uxarmy2.local qa.uxarmy2.local fawn.uxarmy2.local app.uxarmy2.local
+#192.168.10.10  my_symfony.test
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
