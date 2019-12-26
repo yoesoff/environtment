@@ -40,8 +40,8 @@ RUN apt-get install -y --no-install-recommends libxml2-dev libldb-dev libxml2-de
     libc-client-dev \
     libkrb5-dev \
     curl \
-    libcurl3 \
-    libcurl3-dev \
+    libcurl4 \
+    libcurl4-gnutls-dev \
     firebird-dev \
     libpspell-dev \
     aspell-en aspell-de \
