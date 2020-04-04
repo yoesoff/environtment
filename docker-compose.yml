@@ -10,15 +10,22 @@ services:
            - '15672:15672'
         volumes:
            - 'ysf_rabbitmq_data:/bitnami'
+        depends_on:
+           - ysf_postgres
+           - ysf_mysql
+           - ysf_mariadb
+           - ysf_redis
+        restart: always
 
-    zookeeper:
+    ysf_zookeeper:
         image: 'bitnami/zookeeper:3'
         ports:
           - '2181:2181'
         environment:
           - ALLOW_ANONYMOUS_LOGIN=yes
         restart: always
-    kafka:
+
+    ysf_kafka:
         image: 'bitnami/kafka:2'
         ports:
           - '9092:9092'
@@ -34,22 +41,12 @@ services:
           - ysf_redis
         restart: always
 
-    oracle-db:
+    ysf_oracle-db:
         image: oracleinanutshell/oracle-xe-11g:latest
         ports:
           - 1521:1521
           - 5500:5500
           - 7780:8080
-
-    ysf_elastic:
-        image: ubuntu:16.04
-        ports:
-            - '9200:9200'
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-        restart: always
-        tty: true
 
     ysf_postgres:
         image: postgres
@@ -104,7 +101,6 @@ services:
             - "82:82"
             - "8222:8222"
             - "8282:8282"
-
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
