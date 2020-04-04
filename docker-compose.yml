@@ -51,7 +51,7 @@ services:
     ysf_postgres:
         image: postgres
         ports:
-            - '5432:5432'
+            - '3331:5432'
         environment:
             POSTGRES_PASSWORD: postgres
         restart: always
@@ -66,7 +66,7 @@ services:
             - MYSQL_PASSWORD=mysqldb-password123
             - MYSQL_DATABASE=mysqldb123
         ports:
-            - "3306:3306"
+            - "3332:3306"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -80,7 +80,7 @@ services:
             - MYSQL_PASSWORD=mariadb-password123
             - MYSQL_DATABASE=mariadb123
         ports:
-            - "3307:3306"
+            - "3333:3306"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -89,7 +89,7 @@ services:
     ysf_redis:
         image: redis:latest
         ports:
-            - "6379:6379"
+            - "3334:6379"
         restart: always
 
     ysf_mongodb:
@@ -138,9 +138,9 @@ services:
     ysf_nginx:
         build: nginx
         ports:
-            - "80:80"
-            - "8000:8000"
-            - "8080:8080"
+            - "88:80"
+            - "8881:8000"
+            - "8882:8080"
         depends_on:
             - ysf_php_fpm
         links:
@@ -154,7 +154,7 @@ services:
         image: adminer
         restart: always
         ports:
-          - 8081:8080
+          - 8883:8080
         restart: always
         depends_on:
             - ysf_postgres
