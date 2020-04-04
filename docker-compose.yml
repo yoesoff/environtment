@@ -92,6 +92,30 @@ services:
             - "6379:6379"
         restart: always
 
+    ysf_mongodb:
+        image: 'bitnami/mongodb:latest'
+        environment:
+            - MONGODB_ROOT_PASSWORD=password123
+            - ALLOW_EMPTY_PASSWORD=yes
+            - MONGODB_SYSTEM_LOG_VERBOSITY=3
+            - MONGODB_USERNAME=my_mongodb_user
+            - MONGODB_PASSWORD=password123
+            - MONGODB_DATABASE=my_mongodb_database
+        ports:
+            - "27017:27017"
+        volumes:
+            - 'ysf_mongodb_data:/bitnami'
+
+    ysf_elasticsearch:
+        image: 'bitnami/elasticsearch:7'
+        environment:
+            - ELASTICSEARCH_PORT_NUMBER=9200
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        volumes:
+            - 'ysf_elasticsearch_data:/bitnami/elasticsearch/data'
+ 
     ysf_php_fpm:
         build: php-fpm
         ports:
@@ -140,9 +164,11 @@ services:
             - ysf_postgres
             - ysf_mysql
             - ysf_mariadb
-        
+
 volumes:
   ysf_rabbitmq_data:
-    driver: local
-
-
+      driver: local
+  ysf_mongodb_data:
+      driver: local
+  ysf_elasticsearch_data:
+      driver: local
