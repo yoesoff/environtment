@@ -30,11 +30,11 @@ services:
         ports:
           - '9092:9092'
         environment:
-          - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+          - KAFKA_CFG_ZOOKEEPER_CONNECT=ysf_zookeeper:2181
           - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
           - ALLOW_PLAINTEXT_LISTENER=yes
         depends_on:
-          - zookeeper
+          - ysf_zookeeper
           - ysf_postgres
           - ysf_mysql
           - ysf_mariadb
@@ -109,7 +109,6 @@ services:
             - ysf_mysql
             - ysf_mariadb
             - ysf_redis
-            - ysf_elastic
         restart: always
 
     ysf_nginx:
