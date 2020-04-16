@@ -14,6 +14,8 @@ CREATE ROLE ad1_idm_dev SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'p@
 CREATE ROLE ad1_gateway_dev SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'p@ssw0rd123';
 CREATE ROLE sonarcube SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'sonarcube';
 
+CREATE extension IF NOT EXISTS "uuid-ossp";
+
 --create user ad1_ca_report_dev with encrypted password 'p@ssw0rd123';
 --grant all privileges on ad1_ca_report_dev to ad1_ca_report_dev;
 --
