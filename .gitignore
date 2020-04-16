@@ -8,6 +8,5 @@ data/diagnostic.data
 data/journal/
 .vscode
 *www/astronaut/*
-*.sql
 *.bak
 *.tmp
