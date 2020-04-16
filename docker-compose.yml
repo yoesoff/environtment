@@ -86,7 +86,7 @@ services:
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
-        restart: always
+         #restart: always
 
     ysf_redis:
         image: redis:latest
@@ -184,7 +184,7 @@ services:
             - ALLOW_EMPTY_PASSWORD=yes
         volumes:
             - 'ysf_sonarcube_data:/bitnami'
-
+        restart: always
 volumes:
   ysf_rabbitmq_data:
       driver: local
