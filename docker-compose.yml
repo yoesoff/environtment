@@ -51,7 +51,7 @@ services:
     ysf_postgres:
         build: postgres
         ports:
-            - '5432'
+          - '5432:5432'
         environment:
             POSTGRES_PASSWORD: postgres
         volumes:
@@ -68,7 +68,7 @@ services:
             - MYSQL_PASSWORD=mysqldb-password123
             - MYSQL_DATABASE=mysqldb123
         ports:
-            - "3306"
+          - "3306:3306"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -91,7 +91,7 @@ services:
     ysf_redis:
         image: redis:latest
         ports:
-            - "6379"
+          - "6379:6379"
         restart: always
 
     ysf_mongodb:
@@ -104,7 +104,7 @@ services:
             - MONGODB_PASSWORD=password123
             - MONGODB_DATABASE=my_mongodb_database
         ports:
-            - "27017"
+          - "27017:27017"
         volumes:
             - 'ysf_mongodb_data:/bitnami'
 
@@ -113,8 +113,8 @@ services:
         environment:
             - ELASTICSEARCH_PORT_NUMBER=9200
         ports:
-            - '9200'
-            - '9300'
+            - '9200:9200'
+            - '9300:9300'
         volumes:
             - 'ysf_elasticsearch_data:/bitnami/elasticsearch/data'
  
@@ -122,11 +122,11 @@ services:
         build: php-fpm
         ports:
             - "9002:9000"
-            - "3001"
-            - "3000"
-            - "82"
-            - "8222"
-            - "8282"
+            - "3001:3001"
+            - "3000:3000"
+            - "82:82"
+            - "8222:8222"
+            - "8282:8282"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -140,9 +140,9 @@ services:
     ysf_nginx:
         build: nginx
         ports:
-            - "80"
-            - "8000"
-            - "8080"
+          - "80:80"
+          - "8000:8000"
+          - "8080:8080"
         depends_on:
             - ysf_php_fpm
         links:
@@ -170,7 +170,7 @@ services:
     ysf_sonarqube:
         image: bitnami/sonarqube:latest
         ports:
-            - '9000'
+          - '9000:9000'
         depends_on:
             - ysf_postgres
         links:
@@ -178,9 +178,9 @@ services:
         environment:
             - POSTGRESQL_HOST=ysf_postgres
             - POSTGRESQL_PORT_NUMBER=5432
-            - SONARQUBE_DATABASE_USER=sonarqubeuser
-            - SONARQUBE_DATABASE_NAME=sonarqubedb
-            - SONARQUBE_DATABASE_PASSWORD=sonarcubeuser
+            - SONARQUBE_DATABASE_NAME=sonarcube
+            - SONARQUBE_DATABASE_USER=postgres
+            - SONARQUBE_DATABASE_PASSWORD=postgres
             - ALLOW_EMPTY_PASSWORD=yes
         volumes:
             - 'ysf_sonarcube_data:/bitnami'
