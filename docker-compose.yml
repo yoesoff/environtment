@@ -179,8 +179,8 @@ services:
             - POSTGRESQL_HOST=ysf_postgres
             - POSTGRESQL_PORT_NUMBER=5432
             - SONARQUBE_DATABASE_NAME=sonarcube
-            - SONARQUBE_DATABASE_USER=sonarcube
-            - SONARQUBE_DATABASE_PASSWORD=sonarcube
+            - SONARQUBE_DATABASE_USER=postgres
+            - SONARQUBE_DATABASE_PASSWORD=postgres
             - ALLOW_EMPTY_PASSWORD=yes
         volumes:
             - 'ysf_sonarcube_data:/bitnami'
