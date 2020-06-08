@@ -13,7 +13,6 @@ services:
         depends_on:
            - ysf_postgres
            - ysf_mysql
-           - ysf_mariadb
            - ysf_redis
         restart: always
 
@@ -37,16 +36,8 @@ services:
           - ysf_zookeeper
           - ysf_postgres
           - ysf_mysql
-          - ysf_mariadb
           - ysf_redis
         restart: always
-
-    ysf_oracle-db:
-        image: oracleinanutshell/oracle-xe-11g:latest
-        ports:
-          - 1521:1521
-          - 5500:5500
-          - 7780:8080
 
     ysf_postgres:
         build: postgres
@@ -73,20 +64,6 @@ services:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
         restart: always
-
-    ysf_mariadb:
-        image: mariadb
-        environment:
-            - MYSQL_ROOT_PASSWORD=mariadb-password123
-            - MYSQL_USER=mariadb123
-            - MYSQL_PASSWORD=mariadb-password123
-            - MYSQL_DATABASE=mariadb123
-        ports:
-            - "3307:3306"
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-         #restart: always
 
     ysf_redis:
         image: redis:latest
@@ -130,11 +107,24 @@ services:
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
+        depends_on:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
         links:
             - ysf_postgres
             - ysf_mysql
-            - ysf_mariadb
             - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
         restart: always
 
     ysf_nginx:
@@ -161,36 +151,14 @@ services:
         depends_on:
             - ysf_postgres
             - ysf_mysql
-            - ysf_mariadb
         links:
             - ysf_postgres
             - ysf_mysql
-            - ysf_mariadb
-    
-    ysf_sonarqube:
-        image: bitnami/sonarqube:latest
-        ports:
-          - '9000:9000'
-        depends_on:
-            - ysf_postgres
-        links:
-            - ysf_postgres
-        environment:
-            - POSTGRESQL_HOST=ysf_postgres
-            - POSTGRESQL_PORT_NUMBER=5432
-            - SONARQUBE_DATABASE_NAME=sonarcube
-            - SONARQUBE_DATABASE_USER=postgres
-            - SONARQUBE_DATABASE_PASSWORD=postgres
-            - ALLOW_EMPTY_PASSWORD=yes
-        volumes:
-            - 'ysf_sonarcube_data:/bitnami'
-        restart: always
+
 volumes:
   ysf_rabbitmq_data:
       driver: local
   ysf_mongodb_data:
       driver: local
   ysf_elasticsearch_data:
-      driver: local
-  ysf_sonarcube_data:
       driver: local

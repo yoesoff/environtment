@@ -10,3 +10,4 @@ data/journal/
 *www/astronaut/*
 *.bak
 *.tmp
+*.code-workspace
