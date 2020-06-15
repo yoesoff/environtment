@@ -65,6 +65,20 @@ services:
             - ./logs/nginx:/var/www/var/logs:cached
         restart: always
 
+    ysf_mariadb:
+        image: mariadb:10.4.13
+        environment:
+            - MYSQL_ROOT_PASSWORD=mariadb-password123
+            - MYSQL_USER=mariadb123
+            - MYSQL_PASSWORD=mariadb-password123
+            - MYSQL_DATABASE=mariadb123
+        ports:
+            - "3333:3306"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        restart: always
+
     ysf_redis:
         image: redis:latest
         ports:
