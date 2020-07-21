@@ -88,12 +88,12 @@ services:
     ysf_mongodb:
         image: 'bitnami/mongodb:latest'
         environment:
-            - MONGODB_ROOT_PASSWORD=password123
+              #- MONGODB_ROOT_PASSWORD=password123
             - ALLOW_EMPTY_PASSWORD=yes
             - MONGODB_SYSTEM_LOG_VERBOSITY=3
-            - MONGODB_USERNAME=my_mongodb_user
-            - MONGODB_PASSWORD=password123
-            - MONGODB_DATABASE=my_mongodb_database
+              #- MONGODB_USERNAME=my_mongodb_user
+              #- MONGODB_PASSWORD=password123
+              #- MONGODB_DATABASE=my_mongodb_database
         ports:
           - "27017:27017"
         volumes:
@@ -139,14 +139,14 @@ services:
             - ysf_kafka
             - ysf_zookeeper
             - ysf_rabbitmq
-        restart: always
+        #restart: always
 
     ysf_nginx:
         build: nginx
         ports:
-          - "80:80"
-          - "8000:8000"
-          - "8080:8080"
+          - "83:80"
+          - "8300:8000"
+          - "8380:8080"
         depends_on:
             - ysf_php_fpm
         links:
