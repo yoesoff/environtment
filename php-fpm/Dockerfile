@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 # PHP.INI Settings
 RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
