@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.4-fpm
 
 # PHP.INI Settings
 RUN echo 'memory_limit = 3G' >> /usr/local/etc/php/conf.d/memlimit.ini;
@@ -16,7 +16,8 @@ RUN apt-get update --fix-missing
 RUN apt-get install -y --no-install-recommends apt-utils \
     git-core \
     openssl \
-    libssl-dev
+    libssl-dev \
+    libzip-dev
 
 #Install Stuff
 RUN apt-get install -y --no-install-recommends vim git
@@ -30,7 +31,7 @@ RUN apt-get install -y  --no-install-recommends build-essential \
   
 RUN apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libxpm-dev libpng-dev
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-xpm-dir=/usr/include/ --enable-gd-jis-conv
+RUN docker-php-ext-configure gd 
 RUN docker-php-ext-install -j$(nproc) gd      
 RUN apt-get install -y --no-install-recommends libxml2-dev libldb-dev libxml2-dev \
     libxslt-dev \
@@ -68,11 +69,9 @@ RUN docker-php-ext-install -j$(nproc) soap\
     dom \
     zip \
     session
+    
+RUN docker-php-ext-configure json
 RUN docker-php-ext-install -j$(nproc) json\
-    hash \
-    sockets \
-    pdo \
-    mbstring \
     tokenizer \
     pgsql \
     pdo_pgsql \
@@ -87,14 +86,11 @@ RUN docker-php-ext-install -j$(nproc) imap\
     fileinfo \
     gettext \
     iconv \
-    interbase \
-    pdo_firebird \
     opcache \
     pcntl \
     phar \
     posix \
     pspell \
-    recode \
     shmop \
     simplexml \
     snmp \
@@ -102,7 +98,6 @@ RUN docker-php-ext-install -j$(nproc) imap\
     sysvsem \
     sysvshm \
     tidy \
-    wddx \
     xml \
     xmlrpc \
     xmlwriter
@@ -115,10 +110,10 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 #
 RUN pecl install mailparse && docker-php-ext-enable mailparse
 # mcrypt-1.0.1 for next version
-RUN apt-get install -y libmcrypt-dev && pecl install mcrypt-1.0.0 && docker-php-ext-enable mcrypt
+#RUN apt-get install -y libmcrypt-dev && pecl install mcrypt-1.0.0 && docker-php-ext-enable mcrypt
 
 #Install Node
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 RUN ln -s /usr/bin/nodejs /usr/local/bin/node
 RUN node -v

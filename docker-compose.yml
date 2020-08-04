@@ -109,38 +109,6 @@ services:
         volumes:
             - 'ysf_elasticsearch_data:/bitnami/elasticsearch/data'
  
-    ysf_php_fpm:
-        build: php-fpm
-        ports:
-            - "9002:9000"
-            - "3001:3001"
-            - "3000:3000"
-            - "82:82"
-            - "8222:8222"
-            - "8282:8282"
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-        depends_on:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-            - ysf_elasticsearch
-            - ysf_mongodb
-            - ysf_kafka
-            - ysf_zookeeper
-            - ysf_rabbitmq
-        links:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-            - ysf_elasticsearch
-            - ysf_mongodb
-            - ysf_kafka
-            - ysf_zookeeper
-            - ysf_rabbitmq
-        #restart: always
-
     ysf_nginx:
         build: nginx
         ports:
@@ -154,6 +122,80 @@ services:
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
+        restart: always
+
+ 
+    ysf_php_fpm:
+        build: php-fpm
+#        ports:
+#            - "9001:9000"
+#            - "3001:3001"
+#            - "3000:3000"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        depends_on:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
+        links:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
+        restart: always
+
+    ysf_nginx_latest:
+        build: nginx-latest
+        ports:
+          - "84:80"
+          - "8400:8000"
+          - "8480:8080"
+        depends_on:
+            - ysf_php_fpm_latest
+        links:
+            - ysf_php_fpm_latest
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        restart: always
+
+    ysf_php_fpm_latest:
+        build: php-fpm-latest
+#        ports:
+#            - "9005:9000"
+#            - "3004:3001"
+#            - "3003:3000"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        depends_on:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
+        links:
+            - ysf_postgres
+            - ysf_mysql
+            - ysf_redis
+            - ysf_elasticsearch
+            - ysf_mongodb
+            - ysf_kafka
+            - ysf_zookeeper
+            - ysf_rabbitmq
         restart: always
 
     ysf_adminer:
