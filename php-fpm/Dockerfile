@@ -54,10 +54,10 @@ RUN apt-get install -y --no-install-recommends libxml2-dev libldb-dev libxml2-de
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 #RUN pecl install apc
 RUN docker-php-ext-install opcache
-RUN yes | pecl install xdebug \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_enable=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+#RUN yes | pecl install xdebug \
+#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_enable=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN docker-php-ext-install -j$(nproc) soap\
     ftp \
     xsl \
@@ -126,8 +126,8 @@ RUN node -v
 #Install NodeJS Tools
 RUN npm install -g foreman
 RUN npm install -g yarn
-RUN npm install -g webpack
-RUN npm install -g webpack-cli
+#RUN npm install -g webpack
+#RUN npm install -g webpack-cli
 
 # Set timezone
 RUN rm /etc/localtime
