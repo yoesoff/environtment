@@ -90,13 +90,13 @@ services:
 
     ysf_adminer:
         image: adminer
-        restart: always
         ports:
-          - 8071:8080
-        restart: always
+            - 8071:8080
         depends_on:
             - ysf_postgres
             - ysf_mysql
         links:
             - ysf_postgres
             - ysf_mysql
+        restart: always
+
