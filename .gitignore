@@ -11,3 +11,7 @@ data/journal/
 *.bak
 *.tmp
 *.code-workspace
+
+nginx/admingoteam.conf
+nginx/licenseeysf.conf
+www/catalyst-goteam

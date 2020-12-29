@@ -36,7 +36,7 @@ services:
     ysf_nginx:
         build: nginx
         ports:
-          - "83:80"
+          - "80:80"
           - "8300:8000"
           - "8380:8080"
         depends_on:
