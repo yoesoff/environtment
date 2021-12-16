@@ -6,25 +6,9 @@ services:
         ports:
           - '5432:5432'
         environment:
-            POSTGRES_PASSWORD: postgres
+            POSTGRES_PASSWORD: postgresabc123
         volumes:
             - ./postgres/fixtures/init.sql:/docker-entrypoint-initdb.d/init.sql
-        restart: always
-
-    ysf_mysql:
-        image: mysql
-        command: --default-authentication-plugin=mysql_native_password
-        restart: always
-        environment:
-            - MYSQL_ROOT_PASSWORD=password123
-            - MYSQL_USER=user123
-            - MYSQL_PASSWORD=password123
-            - MYSQL_DATABASE=mysqldb
-        ports:
-          - "3306:3306"
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
         restart: always
 
     ysf_redis:
@@ -33,70 +17,13 @@ services:
           - "6379:6379"
         restart: always
 
-    ysf_nginx:
-        build: nginx
-        ports:
-          - "80:80"
-          - "8300:8000"
-          - "8380:8080"
-        depends_on:
-            - ysf_php_fpm
-            - ysf_php_fpm_latest  
-        links:
-            - ysf_php_fpm
-            - ysf_php_fpm_latest
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-        restart: always
-
-    ysf_php_fpm:
-        build: php-fpm
-        ports:
-            - "9001:9000"
-            - "3001:3001"
-            - "3000:3000"
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-        depends_on:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-        links:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-        restart: always
-    
-    ysf_php_fpm_latest:
-        build: php-fpm-latest
-        ports:
-            - "9005:9000"
-            - "3004:3001"
-            - "3003:3000"
-        volumes:
-            - ./www:/var/www:cached
-            - ./logs/nginx:/var/www/var/logs:cached
-        depends_on:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-        links:
-            - ysf_postgres
-            - ysf_mysql
-            - ysf_redis
-        restart: always
-
     ysf_adminer:
         image: adminer
         ports:
             - 8071:8080
         depends_on:
             - ysf_postgres
-            - ysf_mysql
         links:
             - ysf_postgres
-            - ysf_mysql
         restart: always
 
