@@ -11,6 +11,22 @@ services:
             - ./postgres/fixtures/init.sql:/docker-entrypoint-initdb.d/init.sql
         restart: always
 
+    ysf_mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=password123
+            - MYSQL_USER=user123
+            - MYSQL_PASSWORD=password123
+            - MYSQL_DATABASE=mysqldb
+        ports:
+          - "3306:3306"
+        volumes:
+            - ./www:/var/www:cached
+            - ./logs/nginx:/var/www/var/logs:cached
+        restart: always
+
     ysf_redis:
         image: redis:latest
         ports:
@@ -23,7 +39,9 @@ services:
             - 8071:8080
         depends_on:
             - ysf_postgres
+            - ysf_mysql
         links:
             - ysf_postgres
+            - ysf_mysql
         restart: always
 
