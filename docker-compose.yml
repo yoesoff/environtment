@@ -45,3 +45,18 @@ services:
             - ysf_mysql
         restart: always
 
+    keycloak:
+        depends_on:
+            - ysf_postgres
+        container_name: local_keycloak
+        environment:
+            DB_VENDOR: postgres
+            DB_ADDR: ysf_postgres
+            DB_DATABASE: keycloack
+            DB_USER: postgres
+            DB_PASSWORD: postgresabc123
+        image: jboss/keycloak
+        ports:
+            - "28080:8080"
+        links:
+            - ysf_postgres
