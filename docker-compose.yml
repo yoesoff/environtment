@@ -36,7 +36,7 @@ services:
     ysf_nginx:
         build: nginx
         ports:
-          - "80:80"
+          - "88:80"
           - "8300:8000"
           - "8380:8080"
         depends_on:
@@ -100,3 +100,25 @@ services:
             - ysf_mysql
         restart: always
 
+    keycloak:
+      image: quay.io/keycloak/keycloak:latest
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: ysf_postgres
+        DB_DATABASE: keycloak
+        DB_USER: postgres
+        DB_SCHEMA: public
+        DB_PASSWORD: postgres
+        KEYCLOAK_USER: postgres
+        KEYCLOAK_PASSWORD: postgres
+        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+        #JDBC_PARAMS: "ssl=true"
+      ports:
+        - 8689:8080
+      depends_on:
+        - ysf_adminer
+        - ysf_postgres
+      links:
+        - ysf_adminer
+        - ysf_postgres
+      restart: always
