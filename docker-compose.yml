@@ -53,9 +53,9 @@ services:
     ysf_php_fpm:
         build: php-fpm
         ports:
-            - "9001:9000"
-            - "3001:3001"
-            - "3000:3000"
+            - "9101:9000"
+            - "3101:3001"
+            - "3100:3000"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -72,9 +72,9 @@ services:
     ysf_php_fpm_latest:
         build: php-fpm-latest
         ports:
-            - "9005:9000"
-            - "3004:3001"
-            - "3003:3000"
+            - "9105:9000"
+            - "3104:3001"
+            - "3103:3000"
         volumes:
             - ./www:/var/www:cached
             - ./logs/nginx:/var/www/var/logs:cached
@@ -101,7 +101,7 @@ services:
         restart: always
 
     keycloak:
-      image: quay.io/keycloak/keycloak:latest
+      image: quay.io/keycloak/keycloak:legacy
       environment:
         DB_VENDOR: POSTGRES
         DB_ADDR: ysf_postgres
