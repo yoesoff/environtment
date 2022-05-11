@@ -15,3 +15,4 @@ data/journal/
 nginx/admingoteam.conf
 nginx/licenseeysf.conf
 www/catalyst-goteam
+cockroach-data

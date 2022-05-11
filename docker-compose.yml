@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.5'
 
 services:
     ysf_postgres:
@@ -10,6 +10,15 @@ services:
         volumes:
             - ./postgres/fixtures/init.sql:/docker-entrypoint-initdb.d/init.sql
         restart: always
+
+    ysf_cockroachdb:
+        image: cockroachdb/cockroach:latest-v21.2
+        ports:
+            - "26257:26257"
+            - "8780:8080"
+        command: start-single-node --insecure
+        volumes:
+            - "${PWD}/cockroach-data/crdb:/cockroach/cockroach-data"
 
     ysf_mysql:
         image: mysql
@@ -95,9 +104,11 @@ services:
         depends_on:
             - ysf_postgres
             - ysf_mysql
+            - ysf_cockroachdb 
         links:
             - ysf_postgres
             - ysf_mysql
+            - ysf_cockroachdb
         restart: always
 
     keycloak:
@@ -161,7 +172,7 @@ services:
             - sonarqube_extensions:/opt/sonarqube/extensions
             - sonarqube_logs:/opt/sonarqube/logs
         ports:
-          - "9104:9000"
+            - "9104:9000"
         restart: always
         
     elasticsearch:
